@@ -1,0 +1,43 @@
+$gi = @'
+# --- OS/OneDrive cruft ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Editors/IDE ---
+.vscode/
+.idea/
+
+# --- Python ---
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+.venv/
+venv/
+
+# Optional: if you keep local env files (do NOT commit secrets)
+.env
+.env.*
+
+# --- Node / Vite (frontend) ---
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/coverage/
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+
+# Keep lockfile for reproducible builds:
+# (do NOT ignore) frontend/package-lock.json
+
+# --- Logs / misc ---
+*.log
+
+# --- SQLite (if ever generated locally) ---
+*.sqlite
+*.sqlite3
+'@
+Set-Content .gitignore $gi -Encoding UTF8
