@@ -13,7 +13,7 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: "3.12"
 
       - name: Install deps
         working-directory: services/users
@@ -22,8 +22,8 @@ jobs:
       - name: Run pytest
         working-directory: services/users
         env:
-          DATABASE_URL: sqlite:///:memory:
-          JWT_SECRET: devsecret
+          DATABASE_URL: "sqlite:///:memory:"
+          JWT_SECRET: "devsecret"
         run: pytest -q
 
   backend-notes:
@@ -34,7 +34,7 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: "3.12"
 
       - name: Install deps
         working-directory: services/notes
@@ -43,7 +43,7 @@ jobs:
       - name: Run pytest
         working-directory: services/notes
         env:
-          DATABASE_URL: sqlite:///:memory:
+          DATABASE_URL: "sqlite:///:memory:"
         run: pytest -q
 
   frontend:
@@ -54,7 +54,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install deps
         working-directory: frontend
