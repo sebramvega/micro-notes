@@ -2,47 +2,64 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
 
 jobs:
-  backend:
+  backend-users:
+    name: backend (users)
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        service: [users, notes]
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
-      - name: Install deps
-        run: |
-          cd services/${{ matrix.service }}
-          python -m pip install -r requirements.txt
-      - name: Run pytest
-        env:
-          DATABASE_URL: "sqlite:///:memory:"
-          JWT_SECRET: "devsecret"
-        run: |
-          cd services/${{ matrix.service }}
-          pytest -q
+          python-version: '3.12'
 
-  frontend:
+      - name: Install deps
+        working-directory: services/users
+        run: pip install -r requirements.txt
+
+      - name: Run pytest
+        working-directory: services/users
+        env:
+          DATABASE_URL: sqlite:///:memory:
+          JWT_SECRET: devsecret
+        run: pytest -q
+
+  backend-notes:
+    name: backend (notes)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install deps
+        working-directory: services/notes
+        run: pip install -r requirements.txt
+
+      - name: Run pytest
+        working-directory: services/notes
+        env:
+          DATABASE_URL: sqlite:///:memory:
+        run: pytest -q
+
+  frontend:
+    name: frontend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "npm"
-          cache-dependency-path: frontend/package-lock.json
+          node-version: '20'
+
       - name: Install deps
-        run: |
-          cd frontend
-          npm ci
-      - name: Run vitest
-        run: |
-          cd frontend
-          npm test -- --run
+        working-directory: frontend
+        run: npm ci
+
+      - name: Run tests
+        working-directory: frontend
+        run: npm test -- --run
