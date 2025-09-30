@@ -1,23 +1,42 @@
+/* 
+Micro Notes — App.css
+---------------------
+
+Component/demo styles scoped to the Vite starter UI:
+- Centers the app shell and caps width.
+- Adds interactive hover/animation effects for the Vite/React logos.
+- Respects user motion preferences (no spin when "Reduce motion" is enabled).
+
+Commenting focus
+- Group rules by purpose (layout, interactive effects, animations).
+- Explain non-obvious properties like `will-change` and targeted selectors.
+*/
+
+/* --- App shell layout ------------------------------------------------------ */
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  max-width: 1280px;        /* why: comfortable line length on large screens */
+  margin: 0 auto;           /* why: center the app horizontally */
+  padding: 2rem;            /* why: breathing room around content */
+  text-align: center;       /* why: starter layout centers headline/logo */
 }
 
+/* --- Logo presentation + interactive hover effects ------------------------ */
 .logo {
   height: 6em;
   padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+  will-change: filter;      /* why: hint to the browser that filter changes on hover */
+  transition: filter 300ms; /* why: smooth in/out glow feedback */
 }
 .logo:hover {
+  /* why: soft glow on hover; drop-shadow preserves transparent edges */
   filter: drop-shadow(0 0 2em #646cffaa);
 }
 .logo.react:hover {
+  /* why: React-branded hue variant */
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+/* --- Spin animation (opt-in via media query below) ------------------------ */
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
@@ -27,16 +46,20 @@
   }
 }
 
+/* --- Respect user motion preferences -------------------------------------- */
 @media (prefers-reduced-motion: no-preference) {
+  /* why: only animate when the user hasn't asked to reduce motion
+     note: the selector targets the *second* anchor's .logo in the demo */
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
 }
 
+/* --- Card & helper text --------------------------------------------------- */
 .card {
-  padding: 2em;
+  padding: 2em;             /* why: consistent interior spacing for demo card */
 }
 
 .read-the-docs {
-  color: #888;
+  color: #888;              /* why: deemphasize helper text */
 }

@@ -1,68 +1,94 @@
+/* 
+Micro Notes — index.css (Global Baseline)
+----------------------------------------
+
+Global CSS baseline for typography, color scheme, and basic elements.
+Optimized for good defaults in both dark and light modes.
+
+Commenting focus
+- Document cross-browser rendering flags (font smoothing, text rendering).
+- Explain color-scheme and prefers-color-scheme usage.
+- Call out layout decisions (flex centering the viewport) and a11y choices.
+
+Typical flow
+- :root sets typographic + color system defaults (dark-first, light override).
+- Element styles (links, body, headings, buttons).
+- Media query flips palette for light environments.
+*/
+
+/* --- Root defaults: typography + color system ----------------------------- */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif; /* why: fast system stack fallback */
+  line-height: 1.5;            /* why: readable default leading */
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color-scheme: light dark;    /* why: hint UA to auto-adjust form controls/scrollbars */
+  color: rgba(255, 255, 255, 0.87);  /* why: dark-mode foreground by default */
+  background-color: #242424;         /* why: dark-mode background by default */
 
-  font-synthesis: none;
+  /* Rendering quality tweaks: improve legibility across platforms */
+  font-synthesis: none;         /* why: avoid synthetic bold/italics artifacts */
   text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased; /* macOS/WebKit */
+  -moz-osx-font-smoothing: grayscale;  /* macOS/Firefox */
 }
 
+/* --- Links ---------------------------------------------------------------- */
 a {
   font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+  color: #646cff;               /* why: accessible blue-violet in dark mode */
+  text-decoration: inherit;     /* why: inherit to allow container-driven styles */
 }
 a:hover {
-  color: #535bf2;
+  color: #535bf2;               /* why: subtle hover shift, maintains contrast */
 }
 
+/* --- Page layout ----------------------------------------------------------- */
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  margin: 0;                    /* why: reset UA default margin */
+  display: flex;                /* why: center app shell with modern layout */
+  place-items: center;          /* why: shorthand for align-items + justify-items */
+  min-width: 320px;             /* why: guard against ultra-narrow viewports */
+  min-height: 100vh;            /* why: vertical centering to full viewport height */
 }
 
+/* --- Headings -------------------------------------------------------------- */
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: 3.2em;             /* why: prominent hero size for starter */
+  line-height: 1.1;             /* why: tighter heading rhythm */
 }
 
+/* --- Buttons --------------------------------------------------------------- */
 button {
-  border-radius: 8px;
+  border-radius: 8px;           /* why: soft corners match contemporary UI */
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  font-family: inherit;         /* why: align with global font stack */
+  background-color: #1a1a1a;    /* why: dark theme default */
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: border-color 0.25s; /* why: subtle affordance on hover/focus */
 }
 button:hover {
   border-color: #646cff;
 }
 button:focus,
 button:focus-visible {
+  /* why: preserve accessible focus ring; rely on UA color where possible */
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/* --- Light theme override -------------------------------------------------- */
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: #213547;            /* why: darker text for light backgrounds */
+    background-color: #ffffff; /* why: light mode base */
   }
   a:hover {
-    color: #747bff;
+    color: #747bff;            /* why: hover color tuned for light bg contrast */
   }
   button {
-    background-color: #f9f9f9;
+    background-color: #f9f9f9; /* why: light theme neutral button background */
   }
 }
