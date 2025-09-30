@@ -1,4 +1,3 @@
-```python
 """
 Micro Notes — Users Service (Auth Blueprint)
 -------------------------------------------
@@ -149,4 +148,3 @@ def me():
     # Optional: surface non-sensitive claims if ever needed for debugging
     _claims = get_jwt()  # contains "email" from additional_claims
     return jsonify({"id": u.id, "email": u.email}), 200
-```
