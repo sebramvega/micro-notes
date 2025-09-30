@@ -24,6 +24,7 @@ jobs:
         env:
           DATABASE_URL: "sqlite:///:memory:"
           JWT_SECRET: "devsecret"
+          PYTHONPATH: "${{ github.workspace }}/services/users"
         run: pytest -q
 
   backend-notes:
@@ -44,6 +45,7 @@ jobs:
         working-directory: services/notes
         env:
           DATABASE_URL: "sqlite:///:memory:"
+          PYTHONPATH: "${{ github.workspace }}/services/notes"
         run: pytest -q
 
   frontend:
